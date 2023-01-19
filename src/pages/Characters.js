@@ -2,6 +2,7 @@ import React from "react";
 import { useQuery, gql } from "@apollo/client";
 import { Spinner } from "../components/Spinner";
 import Cards from "../components/Card";
+import './CharacterList.css'
 
 const GET_CHARACTERS = gql`
   query {
@@ -31,15 +32,13 @@ export default function CharactersList() {
   if (error) return <div style={{ color: "red" }}>SomeThing Wrong ...</div>;
 
   return(
-    <div>
+    <div className="CharacterList">
     {data.characters.results.map((character) => {
       return (
-        <Cards
-            maxW='xl'
-            borderRadius='md' 
-            src={character.image}
-            name={character.name}
-        />
+        <div>
+            <img src={character.image} />
+            <h2>{character.name}</h2> 
+        </div>
       );
     })}
   </div>

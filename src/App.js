@@ -3,7 +3,7 @@ import CharactersList from "./pages/Characters";
 
 function App() {
   return (
-    <div>
+    <div className="App">
         <CharactersList />
     </div>
   );
