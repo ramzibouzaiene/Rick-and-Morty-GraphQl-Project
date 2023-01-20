@@ -1,10 +1,11 @@
 import React from "react";
-import { Spinner } from "../components/Spinner";
-import { useCharacters } from "../hooks/useCharacters";
+import { Link } from "react-router-dom";
+import { Spinner } from "../../components/Spinner";
+import { useCharacters } from "../../hooks/useCharacters";
 import "./CharacterList.css";
 
 export default function CharactersList() {
-  const [error, data, loading] = useCharacters();
+  const {error, data, loading} = useCharacters();
 
   if (loading) {
     return (
@@ -22,10 +23,12 @@ export default function CharactersList() {
     <div className="CharacterList">
       {data.characters.results.map((character) => {
         return (
-          <div>
+          <React.Fragment key={character.id}>
+          <Link to={`/${character.id}`}>
             <img src={character.image} alt="CharacterImg" />
             <h2>{character.name}</h2>
-          </div>
+          </Link>
+          </React.Fragment>
         );
       })}
     </div>
