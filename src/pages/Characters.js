@@ -1,23 +1,10 @@
 import React from "react";
-import { useQuery, gql } from "@apollo/client";
 import { Spinner } from "../components/Spinner";
-import Cards from "../components/Card";
-import './CharacterList.css'
-
-const GET_CHARACTERS = gql`
-  query {
-    characters {
-      results {
-        id
-        name
-        image
-      }
-    }
-  }
-`;
+import { useCharacters } from "../hooks/useCharacters";
+import "./CharacterList.css";
 
 export default function CharactersList() {
-  const { error, data, loading } = useQuery(GET_CHARACTERS);
+  const [error, data, loading] = useCharacters();
 
   if (loading) {
     return (
@@ -31,17 +18,16 @@ export default function CharactersList() {
 
   if (error) return <div style={{ color: "red" }}>SomeThing Wrong ...</div>;
 
-  return(
+  return (
     <div className="CharacterList">
-    {data.characters.results.map((character) => {
-      return (
-        <div>
-            <img src={character.image} />
-            <h2>{character.name}</h2> 
-        </div>
-      );
-    })}
-  </div>
-  )
-  
+      {data.characters.results.map((character) => {
+        return (
+          <div>
+            <img src={character.image} alt="CharacterImg" />
+            <h2>{character.name}</h2>
+          </div>
+        );
+      })}
+    </div>
+  );
 }
